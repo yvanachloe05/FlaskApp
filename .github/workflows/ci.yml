@@ -45,7 +45,6 @@ jobs:
       - name: Login to Private Registry
         uses: docker/login-action@v3
         with:
-          registry: registry.example.com
           username: ${{ secrets.PRIVATE_REGISTRY_USERNAME }}
           password: ${{ secrets.PRIVATE_REGISTRY_PASSWORD }}
 
@@ -56,4 +55,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/flaskapp:latest
-            registry.example.com/flaskapp:latest
+            
