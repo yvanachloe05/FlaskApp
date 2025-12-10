@@ -36,9 +36,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Build Docker image
         run: docker build -t flaskapp .
-        
-  send_mail:
-     - name: Send email on failure
+      - name: Send email on failure
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
