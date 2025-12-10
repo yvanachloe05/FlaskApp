@@ -28,10 +28,17 @@ jobs:
       - name: Run tests
         run:  |
           pytest
-
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t flaskapp .
+        
   build-and-push:
     runs-on: ubuntu-latest
-    needs: test
+    needs: [test, build]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
