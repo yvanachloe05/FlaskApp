@@ -28,7 +28,16 @@ jobs:
       - name: Run tests
         run:  |
           pytest
-      - name: Send email on failure
+      
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t flaskapp .
+  send_mail:
+     - name: Send email on failure
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
@@ -40,13 +49,6 @@ jobs:
           to: chloeyvana60@gmail.com
           from: GitHub Actions
           body: "Les tests ont échoué. Vérifiez les logs."
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Build Docker image
-        run: docker build -t flaskapp .
         
   build-and-push:
     runs-on: ubuntu-latest
