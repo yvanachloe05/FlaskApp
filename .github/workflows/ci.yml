@@ -28,6 +28,18 @@ jobs:
       - name: Run tests
         run:  |
           pytest
+      - name: Send email on failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Tests Failed - FlaskApp"
+          to: chloeyvana60@gmail.com
+          from: GitHub Actions
+          body: "Les tests ont échoué. Vérifiez les logs."
   build:
     runs-on: ubuntu-latest
     steps:
